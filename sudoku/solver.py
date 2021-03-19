@@ -1,4 +1,3 @@
-
 import copy
 import time
 import os
@@ -65,6 +64,30 @@ class Solver(object):
         else:
             print("The puzzle was not solvable")
 
+    def assign(self, values, key, value):
+        if value not in values[key]:
+            return
+
+        remove = values[key].replace(value, "")
+        for r in remove:
+            self.remove(values, key, r)
+
+        for u in self.rows[key]:
+            if not u == key:
+                self.remove(values, u, value)
+        for u in self.columns[key]:
+            if not u == key:
+                self.remove(values, u, value)
+        for u in self.boxes[key]:
+            if not u == key:
+                self.remove(values, u, value)
+
+    def find(self, values):
+        for l in self.letters:
+            for n in self.numbers:
+                if len(values[l + n]) > 1:
+                    return l + n, values[l + n][0]
+
     def parse(self, input):
         for key in input:
             if input[key] in "123456789":
@@ -96,23 +119,6 @@ class Solver(object):
             self.single(values, self.columns, key, str(i))
             self.single(values, self.boxes, key, str(i))
 
-    def assign(self, values, key, value):
-        if value not in values[key]:
-            return
-
-        remove = values[key].replace(value, "")
-        for r in remove:
-            self.remove(values, key, r)
-
-        for u in self.rows[key]:
-            if not u == key:
-                self.remove(values, u, value)
-        for u in self.columns[key]:
-            if not u == key:
-                self.remove(values, u, value)
-        for u in self.boxes[key]:
-            if not u == key:
-                self.remove(values, u, value)
 
     def single(self, values, group, key, value):
         candidates = list()
@@ -146,23 +152,3 @@ class Solver(object):
         else:
             self.remove(mother, find[0], find[1])
             return self.solve(mother)
-
-    def find(self, values):
-        for l in self.letters:
-            for n in self.numbers:
-                if len(values[l + n]) > 1:
-                    return l + n, values[l + n][0]
-
-
-if __name__ == "__main__":
-    print("Was main, solving")
-    puzzle = "800000000003600000070090200050007000000045700000100030001000068008500010090000400"  # arto
-    val = dict()
-    let = "ABCDEFGHI"
-    num = "123456789"
-    for n in range(0, 9):
-        for l in range(0, 9):
-            val[let[l] + num[n]] = puzzle[n * 9 + l]
-
-    solver = Solver(val)
-
