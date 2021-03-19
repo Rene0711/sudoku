@@ -7,10 +7,10 @@ from sudoku.solver import Solver
 def index(request):
     if request.GET:
         if request.GET['gen'] == '1':
-            values = sudoku.generator.get_grid()
+            values = sudoku.generator.get_grid(False)
             return render(request, 'sudoku/index.html', {'values': values})
         if request.GET['gen'] == '2':
-            values = sudoku.generator.get_empty_grid()
+            values = sudoku.generator.get_grid(True)
             return render(request, 'sudoku/index.html', {'values': values})
         else:
             valid = True
