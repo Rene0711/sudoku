@@ -1,7 +1,9 @@
 import sudoku.generator
+import sudoku.new_solver
 
 from django.shortcuts import render, redirect
 from sudoku.solver import Solver
+from sudoku.new_solver import solver
 
 
 def index(request):
@@ -29,7 +31,8 @@ def index(request):
                             else:
                                 values[l + n] = request.GET[l + n]
             if valid:
-                values = Solver(values).values
+                values = sudoku.new_solver.solver(values)
+                #values = Solver(values).values
                 if values:
                     return render(request, 'sudoku/index.html', {'values': values})
             return redirect('index')

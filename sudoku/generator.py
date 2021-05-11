@@ -122,9 +122,8 @@ def handler(empty):
     ]
 
     if not empty:
-        attempts = 5
+        attempts = 2
         fillGrid(grid)
-        print(grid)
 
         while attempts > 0:
             row = randint(0, 8)
