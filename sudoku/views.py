@@ -40,5 +40,5 @@ def index(request):
         return render(request, 'sudoku/index.html')
 
 
-def generate(request):
-    return True
+def home(request):
+    return render(request, 'sudoku/home.html')

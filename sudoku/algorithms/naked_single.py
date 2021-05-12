@@ -1,4 +1,3 @@
-from sudoku.algorithms.helper.squares import square_finder
 from sudoku.algorithms.helper.find_empty import find_empty
 
 

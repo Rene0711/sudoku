@@ -1,14 +1,11 @@
-from sudoku.algorithms.helper.find_empty import find_empty
 from sudoku.algorithms.helper.squares import square_finder
-import collections
-import numpy
 
 
 def hidden_single(values, empty_options):
     if len(values) == 81:
         return values, empty_options
     else:
-        for key, options in empty_options.items():
+        for key, option in empty_options.items():
             column_result = column_check(key, empty_options)
             if column_result:
                 values[key] = str(column_result)
