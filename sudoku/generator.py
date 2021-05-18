@@ -122,7 +122,7 @@ def handler(empty):
     ]
 
     if not empty:
-        attempts = 10
+        attempts = 8
         fillGrid(grid)
 
         while attempts > 0:

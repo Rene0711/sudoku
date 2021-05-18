@@ -2,59 +2,45 @@ from sudoku.algorithms.helper.squares import square_finder
 
 
 def find_empty(values):
-    letters = "ABCDEFGHI"
-    numbers = "123456789"
-    empties = dict()
-    fulls = dict()
+    values_new_options = dict()
+    for key, value in values.items():
+        value.options = remove_column(values, value.options, value.column)
+        value.options = remove_line(values, value.options, value.line)
+        value.options = remove_square(values, value.options, value.square)
 
-    for l in letters:
-        for n in numbers:
-            try:
-                fulls[l + n] = values[l + n]
-            except:
-                empties[l + n] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-    return single_option(values, empties)
+    return values
 
 
-def remove_column(key, options, values):
-    letter = key[0]
-    numbers = "123456789"
-    for n in numbers:
-        if letter + n in values:
-            try:
-                options.remove(int(values[letter + n]))
-            except:
-                pass
+def remove_column(values, options, column):
+    for key, value in values.items():
+        if value.column == column:
+            if value.value is not None:
+                try:
+                    options.remove(int(value.value))
+                except:
+                    pass
     return options
 
 
-def remove_line(key, options, values):
-    letters = "ABCDEFGHI"
-    number = key[-1]
-    for l in letters:
-        if l + number in values:
-            try:
-                options.remove(int(values[l + number]))
-            except:
-                pass
+def remove_line(values, options, line):
+    for key, value in values.items():
+        if value.line == line:
+            if value.value is not None:
+                try:
+                    options.remove(int(value.value))
+                except:
+                    pass
     return options
 
 
-def remove_square(key, options, values):
-    square = square_finder(key)
-    for field in square:
-        try:
-            options.remove(int(values[field]))
-        except:
-            pass
+def remove_square(values, options, square):
+    for key, value in values.items():
+        if value.square == square:
+            if value.value is not None:
+                try:
+                    options.remove(int(value.value))
+                except:
+                    pass
     return options
 
 
-def single_option(values, empties):
-    for key, options in empties.items():
-        options = remove_column(key, options, values)
-        options = remove_line(key, options, values)
-        options = remove_square(key, options, values)
-
-    return empties

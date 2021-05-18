@@ -1,79 +1,41 @@
-from sudoku.algorithms.helper.squares import square_finder
-
-
-def hidden_single(values, empty_options):
-    if len(values) == 81:
-        return values, empty_options
-    else:
-        for key, option in empty_options.items():
-            column_result = column_check(key, empty_options)
-            if column_result:
-                values[key] = str(column_result)
-                return values, empty_options
-            else:
-                line_result = line_check(key, empty_options)
-                if line_result:
-                    values[key] = str(line_result)
-                    return values, empty_options
-                else:
-                    square_result = square_check(key, empty_options)
-                    if square_result:
-                        values[key] = str(square_result)
-                        return values, empty_options
-    return values, empty_options
-
-
-def column_check(key, empty_options):
-    letter = key[0]
-    numbers = "123456789"
-
-    for option in empty_options[key]:
-        doubled = False
-        for n in numbers:
-            try:
-                for other_option in empty_options[letter + n]:
-                    if other_option == option:
-                        if key != letter + n:
-                            doubled = True
-            except:
-                pass
-        if not doubled:
-            return option
+def hidden_single(values):
+    for key, value in values.items():
+        if value.value is None:
+            for option in value.options:
+                column = check_column(key, value.column, option, values)
+                if column is not False:
+                    return key, option
+                line = check_line(key, value.line, option, values)
+                if line is not False:
+                    return key, option
+                square = check_square(key, value.square, option, values)
+                if square is not False:
+                    return key, option
     return False
 
 
-def line_check(key, empty_options):
-    letters = "ABCDEFGHI"
-    number = key[-1]
-    options = []
-
-    for option in empty_options[key]:
-        doubled = False
-        for l in letters:
-            try:
-                for other_option in empty_options[l + number]:
-                    if other_option == option:
-                        if key != l + number:
-                            doubled = True
-            except:
-                pass
-        if not doubled:
-            return option
-    return False
+def check_column(search_key, column, search_option, values):
+    for key, value in values.items():
+        if value.column is column and search_key is not key:
+            for option in value.options:
+                if option is search_option:
+                    return False
+    return search_option
 
 
-def square_check(key, empty_options):
-    square = square_finder(key)
+def check_line(search_key, line, search_option, values):
+    for key, value in values.items():
+        if value.line is line and search_key is not key:
+            for option in value.options:
+                if option is search_option:
+                    return False
+    return search_option
 
-    for option in empty_options[key]:
-        for field in square:
-            try:
-                for other_option in empty_options[field]:
-                    if other_option == option:
-                        if key != field:
-                            doubled = True
-            except:
-                pass
-        if not doubled:
-            return option
-    return False
+
+def check_square(search_key, square, search_option, values):
+    for key, value in values.items():
+        if value.square is square and search_key is not key:
+            for option in value.options:
+                if option is search_option:
+                    return False
+    return search_option

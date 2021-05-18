@@ -2,34 +2,28 @@ from sudoku.algorithms.naked_single import naked_single
 from sudoku.algorithms.hidden_single import hidden_single
 from sudoku.algorithms.naked_pair import naked_pair
 from sudoku.algorithms.helper.find_empty import find_empty
+from sudoku.algorithms.helper.squares import get_square
 
 
 def solver(values):
-    empty_options = False
-    last_count = 0
-    count = 0
-    while (len(values) < 81):
-        count_values = len(values)
+    value_obj = find_empty(values_to_objects(filled(values)))
+    hints = dict()
+    
+    result_key = naked_single(value_obj)
+    if result_key is not False:
+        hints[1] = {"Es ist ein Naked Single zu finden"}
+        hints[2] = {"Es ist im markierten Bereich zu finden", str(value_obj[result_key].square)}
+        hints[3] = {"Beachte das markierte Feld", str(result_key)}
+        hints[4] = {"In dieses Feld kommt folgender Wert", str(result_key), str(value_obj[result_key].options[0])}
+        return hints
 
-        if not empty_options:
-            empty_options = find_empty(values)
-
-        values, empty_options = naked_single(values, empty_options)
-        values, empty_options = hidden_single(values, empty_options)
-        # values, empty_options = naked_pair(values, empty_options)
-
-        if count_values == last_count:
-            count = count + 1
-            empty_options = False
-            print("Mit den ausgewählten Algorithmen konnten nicht alle Zahlen ermittelt werden!")
-            if count > 3:
-                break
-        else:
-            count = 0
-
-        last_count = len(values)
-
-    return filled(values)
+    result_key, value = hidden_single(value_obj)
+    if result_key is not False:
+        hints[1] = {"Es ist ein Hidden Single zu finden"}
+        hints[2] = {"Es ist im markierten Bereich zu finden", str(value_obj[result_key].square)}
+        hints[3] = {"Beachte das markierte Feld", str(result_key)}
+        hints[4] = {"In dieses Feld kommt folgender Wert", str(result_key), str(value)}
+        return hints
 
 
 def filled(values):
@@ -41,10 +35,44 @@ def filled(values):
             try:
                 values[l + n]
             except:
-                values[l + n] = ''
+                values[l + n] = None
     return values
+
+
+class Field:
+    def __init__(self, value, options, column, line, square):
+        self.value = value
+        self.options = options
+        self.column = column
+        self.line = line
+        self.square = square
 
 
 def values_to_objects(values):
+    values_obj = dict()
+    letters = "ABCDEFGHI"
 
-    return values
+    for key, value in values.items():
+        options = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        if value is not None:
+            options = []
+
+        values_obj[key] = Field(value,
+                                options,
+                                letters.find(key[0]) + 1,
+                                int(key[-1]),
+                                get_square(key))
+
+    return values_obj
+
+
+def objects_to_values(values):
+    values_plain = dict()
+
+    for key, value in values.items():
+        if value.value is None:
+            values_plain[key] = ''
+        else:
+            values_plain[key] = value.value
+
+    return values_plain
