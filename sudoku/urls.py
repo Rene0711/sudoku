@@ -3,6 +3,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url('', views.index, name='index'),
-    url('home', views.home, name='home'),
+    url(r'^sudoku-trainer/', views.sudoku_trainer, name='sudoku-trainer'),
+    url(r'^sudoku-solver/', views.sudoku_solver, name='sudoku-solver'),
+    url(r'^sudoku-creator/', views.sudoku_creator, name='sudoku-creator'),
+    url(r'^', views.index, name='index'),
 ]

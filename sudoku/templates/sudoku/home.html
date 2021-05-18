@@ -1,10 +1,64 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Sudoku Helper</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/home.css' %}">
 </head>
 <body>
+<ul>
+    <li><a class="active" href="/">Home</a></li>
+    <li style="float:right"><a href="/sudoku-solver/">Sudoku Solver</a></li>
+    <li style="float:right"><a href="/sudoku-trainer/">Sudoku Trainer</a></li>
+    <li style="float:right"><a href="/sudoku-creator/">Sudoku Creator</a></li>
+</ul>
+<div style="padding:20px;margin-top:30px;height:1500px;">
+    <h1>Sudoku Helper - Alles Rund um Sudokus</h1>
+    <div class="row">
+        <div class="column">
+            <h2>Beliebte Sudokus</h2>
+            <p>Bezwinge einige der berühmtesten Sudokus</p>
+            <div class="slider">
+                <div class="slideshow-container">
 
+                    <div class="mySlides fade">
+                        <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=origxorig:format=png/path/s11bd04e0af97257c/image/ia6fcbd85de4fd802/version/1565017678/image.png">
+                        <div class="text">Sudoku #1</div>
+                    </div>
+
+                    <div class="mySlides fade">
+                        <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=origxorig:format=png/path/s11bd04e0af97257c/image/ic16b4118433c2c91/version/1565017685/image.png">
+                        <div class="text">Sudoku #2</div>
+                    </div>
+
+                    <div class="mySlides fade">
+                        <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=origxorig:format=png/path/s11bd04e0af97257c/image/ia5f0c5352fda80dc/version/1565017691/image.png">
+                        <div class="text">Sudoku #3</div>
+                    </div>
+
+                </div>
+                <br>
+
+                <div style="text-align:center">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <h2>Daily Challenge</h2>
+            <p>Schaue jeden Tag vorbei und bezwinge die daily challenge</p>
+            <div class="calendar">
+                <img src="https://docs.microsoft.com/de-de/windows/uwp/design/controls-and-patterns/images/controls_calendar_monthview.png">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="{% static 'sudoku/home.js' %}"></script>
 </body>
 </html>

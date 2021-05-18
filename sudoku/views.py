@@ -7,13 +7,17 @@ from sudoku.new_solver import solver
 
 
 def index(request):
+    return render(request, 'sudoku/home.html')
+
+
+def sudoku_solver(request):
     if request.GET:
         if request.GET['gen'] == '1':
             values = sudoku.generator.get_grid(False)
-            return render(request, 'sudoku/index.html', {'values': values})
+            return render(request, 'sudoku/solver.html', {'values': values})
         if request.GET['gen'] == '2':
             values = sudoku.generator.get_grid(True)
-            return render(request, 'sudoku/index.html', {'values': values})
+            return render(request, 'sudoku/solver.html', {'values': values})
         else:
             valid = True
             values = dict()
@@ -34,11 +38,15 @@ def index(request):
                 values = sudoku.new_solver.solver(values)
                 #values = Solver(values).values
                 if values:
-                    return render(request, 'sudoku/index.html', {'values': values})
+                    return render(request, 'sudoku/solver.html', {'values': values})
             return redirect('index')
     else:
-        return render(request, 'sudoku/index.html')
+        return render(request, 'sudoku/solver.html')
 
 
-def home(request):
-    return render(request, 'sudoku/home.html')
+def sudoku_creator(request):
+    return render(request, 'sudoku/creator.html')
+
+
+def sudoku_trainer(request):
+    return render(request, 'sudoku/trainer.html')
