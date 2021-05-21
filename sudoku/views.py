@@ -1,3 +1,6 @@
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 import sudoku.generator
 import sudoku.new_solver
 
@@ -10,12 +13,14 @@ def index(request):
     return render(request, 'sudoku/home.html')
 
 
+@csrf_exempt
 def sudoku_solver(request):
-    if request.GET:
-        if request.GET['gen'] == '1':
+    print(request.POST)
+    if request.POST:
+        if request.POST['gen'] == "1":
             values = sudoku.generator.get_grid(False)
             return render(request, 'sudoku/solver.html', {'values': values})
-        if request.GET['gen'] == '2':
+        if request.POST['gen'] == '2':
             values = sudoku.generator.get_grid(True)
             return render(request, 'sudoku/solver.html', {'values': values})
         else:
@@ -24,23 +29,25 @@ def sudoku_solver(request):
             setup = False
             for l in "ABCDEFGHI":
                 for n in "123456789":
-                    if l + n not in request.GET:
+                    if l + n not in request.POST:
                         valid = False
                     else:
-                        if len(request.GET[l + n]) > 1:
+                        if len(request.POST[l + n]) > 1:
                             valid = False
-                        elif len(request.GET[l + n]) == 1:
-                            if request.GET[l + n] not in "123456789":
+                        elif len(request.POST[l + n]) == 1:
+                            if request.POST[l + n] not in "123456789":
                                 valid = False
                             else:
-                                values[l + n] = request.GET[l + n]
+                                values[l + n] = request.POST[l + n]
             if valid:
-                values = sudoku.new_solver.solver(values)
-                #values = Solver(values).values
+                values, hints, candidates = sudoku.new_solver.solver(values)
                 if values:
-                    return render(request, 'sudoku/solver.html', {'values': values})
+                    return render(request, 'sudoku/solver.html', {'values': values,
+                                                                  'hints': hints,
+                                                                  'candidates': candidates})
             return redirect('index')
     else:
+        print(request)
         return render(request, 'sudoku/solver.html')
 
 

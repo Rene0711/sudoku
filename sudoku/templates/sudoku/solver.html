@@ -7,44 +7,91 @@
     <link rel="stylesheet" type="text/css" href="{% static 'sudoku/menu.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'sudoku/solver.css' %}">
 </head>
-<body>
+<body onload="onSiteLoad()">
 <ul>
     <li><a href="/">Home</a></li>
-    <li style="float:right"><a class="active" href="/sudoku-solver/">Sudoku Solver</a></li>
+    <li style="float:right"><a class="active" href="/sudoku-solver/">Sudoku Helper</a></li>
     <li style="float:right"><a href="/sudoku-trainer/">Sudoku Trainer</a></li>
     <li style="float:right"><a href="/sudoku-creator/">Sudoku Creator</a></li>
 </ul>
 
-<div style="padding:20px;margin-top:30px;height:1500px;">
-    <div id="holder">
-    <br><br>
-        <form action="/sudoku-solver/" method="get">
-            <table id="table">
-                {% for n in "123456789" %}
-                    <tr>
+<div style="padding:20px;margin-top:60px;">
+    <div class="row">
+        <div class="column">
+            <div id="sudoku" class="sudoku-board show-candidates" data-board-size="9">
+                <form action="/sudoku-solver/" method="post">
+                    {% csrf_token %}
+                    {% for n in "123456789" %}
                         {% for l in "ABCDEFGHI" %}
-                            <td>
-                                <input id="{{ l }}{{ n }}" type="text" name="{{ l }}{{ n }}"
-                                       value="{{ values|letter:l|number:n }}" class="square" maxlength="1" size="1">
-                            </td>
+                            <div class="sudoku-board-cell">
+                                <input id="{{ l }}{{ n }}" type="text" name="{{ l }}{{ n }}" pattern="\d"
+                                       value="{{ values|letter:l|number:n }}" maxlength="1">
+                                <div id="candidates-{{ l }}{{ n }}" class="candidates">
+                                    <div class="candidate-box" id="{{ l }}{{ n }}-1">
+                                        <input type="hidden" name="{{ l }}{{ n }}-1" value=""><p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate-box" id="{{ l }}{{ n }}-2">
+                                        <input type="hidden" name="{{ l }}{{ n }}-2" value=""><p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate-box" id="{{ l }}{{ n }}-3">
+                                        <input type="hidden" name="{{ l }}{{ n }}-3" value=""><p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate-box" id="{{ l }}{{ n }}-4">
+                                        <input type="hidden" name="{{ l }}{{ n }}-4" value=""><p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate-box" id="{{ l }}{{ n }}-5">
+                                        <input type="hidden" name="{{ l }}{{ n }}-5" value=""><p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate-box" id="{{ l }}{{ n }}-6">
+                                        <input type="hidden" name="{{ l }}{{ n }}-6" value=""><p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate-box" id="{{ l }}{{ n }}-7">
+                                        <input type="hidden" name="{{ l }}{{ n }}-7" value=""><p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate-box" id="{{ l }}{{ n }}-8">
+                                        <input type="hidden" name="{{ l }}{{ n }}-8" value=""><p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate-box" id="{{ l }}{{ n }}-9">
+                                        <input type="hidden" name="{{ l }}{{ n }}-9" value=""><p>&nbsp;</p>
+                                    </div>
+                                </div>
+                            </div>
                         {% endfor %}
-                    </tr>
+                    {% endfor %}
+                    <input type="hidden" id="gen0" name="gen" value="0">
+                    <input onclick="showCandidateButton()" id="solve" type="submit" class="buttons" value="Hilfe">
+                </form>
+            </div>
+            <form action="/sudoku-solver/" method="post">
+                <input type="hidden" id="gen1" name="gen" value="1">
+                <input id="generate" type="submit" class="buttons" value="Generieren">
+            </form>
+
+            <form action="/sudoku-solver/" method="post">
+                <input type="hidden" id="gen3" name="gen" value="2">
+                <input id="clear" type="submit" class="buttons" value="Löschen">
+            </form>
+
+        </div>
+        <div class="column">
+            <div>
+                <article hidden class="switch" id="candidateButton">
+                    <input id="candidates_checkbox" type="checkbox" onclick="showCandidates({{ candidates }})">
+                    <div>
+                        <span>Show candidates</span>
+                    </div>
+                </article>
+                {% for key, hint in hints.items %}
+                    <details>
+                        <summary id="key-{{ key }}" onclick="markField(id, {{ key }}, {{ hint }})">Hinweis {{ key }}:
+                        </summary>
+                        <p>{{ hint.0 }}</p>
+                    </details>
                 {% endfor %}
-            </table>
-            <input type="hidden" id="gen" name="gen" value="0">
-            <input id="solve" type="submit" value="Lösen">
-        </form>
-
-        <form action="/sudoku-solver/" method="get">
-            <input type="hidden" id="gen" name="gen" value="1">
-            <input id="generate" type="submit" value="Generieren">
-        </form>
-
-        <form action="/sudoku-solver/" method="get">
-            <input type="hidden" id="gen" name="gen" value="2">
-            <input id="clear" type="submit" value="Löschen">
-        </form>
+            </div>
+        </div>
     </div>
 </div>
+<script src="{% static 'sudoku/solver.js' %}"></script>
 </body>
 </html>
