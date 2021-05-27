@@ -2,7 +2,6 @@ from sudoku.algorithms.helper.squares import square_finder
 
 
 def find_empty(values):
-    values_new_options = dict()
     for key, value in values.items():
         value.options = remove_column(values, value.options, value.column)
         value.options = remove_line(values, value.options, value.line)

@@ -1,29 +1,13 @@
 function markField(id, key, hint) {
     removeColor()
     if (hint.length > 1) {
-        let hintElement = document.getElementById(id).parentElement
-        let field = document.getElementById(hint[1])
+        let algoName = document.getElementById("key-1-p")
+        if (algoName.innerHTML.includes("Naked Single") || algoName.innerHTML.includes("Hidden Single")) {
+            naked_hiddenSingle(id, key, hint)
+        } else if(algoName.innerHTML.includes("Locked Candidates Type 1")) {
 
-        if (!hintElement.open && key == 2) {
-            hint[1].forEach(element => {
-                document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
-            })
-        } else if (hintElement.open && key == 2) {
-            hint[1].forEach(element => {
-                document.getElementById(element).style.backgroundColor = ""
-            })
         }
-        if (!hintElement.open && (key == 3 || key == 4)) {
-            field.style.backgroundColor = "rgba(255,0,0,0.37)"
-            if (key == 4) {
-                field.placeholder = hint[2]
-            }
-        } else if (hintElement.open && (key == 3 || key == 4)) {
-            field.style.backgroundColor = ""
-            if (key == 4) {
-                field.placeholder = ""
-            }
-        }
+
     }
 }
 
@@ -84,11 +68,37 @@ function detailsClose() {
     })
 }
 
-function removeColor(){
+function removeColor() {
     const fields = document.getElementsByClassName("sudoku-board-cell")
-    for(let i = 0; i < fields.length; i++){
+    for (let i = 0; i < fields.length; i++) {
         let children = fields[i].children
         children[0].style.backgroundColor = ""
         children[0].placeholder = ""
+    }
+}
+
+function naked_hiddenSingle(id, key, hint) {
+    let hintElement = document.getElementById(id).parentElement
+    let field = document.getElementById(hint[1])
+
+    if (!hintElement.open && key == 2) {
+        hint[1].forEach(element => {
+            document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
+        })
+    } else if (hintElement.open && key == 2) {
+        hint[1].forEach(element => {
+            document.getElementById(element).style.backgroundColor = ""
+        })
+    }
+    if (!hintElement.open && (key == 3 || key == 4)) {
+        field.style.backgroundColor = "rgba(255,0,0,0.37)"
+        if (key == 4) {
+            field.placeholder = hint[2]
+        }
+    } else if (hintElement.open && (key == 3 || key == 4)) {
+        field.style.backgroundColor = ""
+        if (key == 4) {
+            field.placeholder = ""
+        }
     }
 }
