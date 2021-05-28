@@ -3,6 +3,7 @@
     margin-top: 3px;
     margin-bottom: 1em;
     width: 500px;
+    caret-color: transparent;
 }
 
 .sudoku-board-cell {
@@ -98,6 +99,11 @@
 
 .candidate--highlight {
     background-color: yellow;
+}
+
+.candidate_box {
+    border-radius: 2px;
+    text-align: center;
 }
 
 .candidate--to-remove {

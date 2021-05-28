@@ -5,6 +5,7 @@ from sudoku.algorithms.locked_candidates_claiming import locked_candidates_claim
 from sudoku.algorithms.naked_pair import naked_pair
 from sudoku.algorithms.helper.find_empty import find_empty
 from sudoku.algorithms.helper.squares import get_square, square_finder
+from sudoku.algorithms.helper.marked_area import marked_area
 
 
 
@@ -35,7 +36,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, value, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-
+    
     
     result_keys, value, outside_keys = locked_candidates_claiming(value_obj)
     if result_keys is not False:
@@ -49,10 +50,11 @@ def solver(values, candidates):
     result_keys, values, outside_keys = naked_pair(value_obj)
     if result_keys is not False:
         hints["1"] = ["Es ist ein Naked Pair zu finden"]
-        hints["2"] = ["Es ist im markierten Bereich zu finden", square_finder(result_keys[0])]
+        hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area(result_keys)]
         hints["3"] = ["Beachte die markierten Felder", result_keys]
-        hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, value, outside_keys]
+        hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
+
 
 def filled(values):
     letters = "ABCDEFGHI"
