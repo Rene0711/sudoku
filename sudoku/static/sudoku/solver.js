@@ -4,8 +4,8 @@ function markField(id, key, hint) {
         let algoName = document.getElementById("key-1-p")
         if (algoName.innerHTML.includes("Naked Single") || algoName.innerHTML.includes("Hidden Single")) {
             naked_hiddenSingle(id, key, hint)
-        } else if(algoName.innerHTML.includes("Locked Candidates Type 1")) {
-
+        } else if (algoName.innerHTML.includes("Locked Candidates Type")) {
+            locked_candidates(id, key, hint)
         }
 
     }
@@ -80,7 +80,9 @@ function removeColor() {
 function naked_hiddenSingle(id, key, hint) {
     let hintElement = document.getElementById(id).parentElement
     let field = document.getElementById(hint[1])
+    let candidateField = document.getElementById(hint[1] + "-" + hint[2])
 
+    // Hinweis 2
     if (!hintElement.open && key == 2) {
         hint[1].forEach(element => {
             document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
@@ -90,15 +92,72 @@ function naked_hiddenSingle(id, key, hint) {
             document.getElementById(element).style.backgroundColor = ""
         })
     }
-    if (!hintElement.open && (key == 3 || key == 4)) {
+
+    // Hinweis 3
+    if (!hintElement.open && (key == 3)) {
         field.style.backgroundColor = "rgba(255,0,0,0.37)"
-        if (key == 4) {
-            field.placeholder = hint[2]
-        }
-    } else if (hintElement.open && (key == 3 || key == 4)) {
+
+    } else if (hintElement.open && (key == 3)) {
         field.style.backgroundColor = ""
-        if (key == 4) {
-            field.placeholder = ""
-        }
     }
+
+    // Hinweis 4
+    if (!hintElement.open && (key == 4)) {
+        if (document.getElementById("candidates_checkbox").checked) {
+            candidateField.style.backgroundColor = "rgba(0,255,0,0.37)"
+        } else {
+            alert("Bitte aktivieren Sie alle Kandidaten zuerst")
+        }
+    } else if (hintElement.open && (key == 4)) {
+        candidateField.style.backgroundColor = ""
+    }
+}
+
+function locked_candidates(id, key, hint) {
+    let hintElement = document.getElementById(id).parentElement
+
+    // Hinweis 2
+    if (!hintElement.open && key == 2) {
+        hint[1].forEach(element => {
+            document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
+        })
+    } else if (hintElement.open && key == 2) {
+        hint[1].forEach(element => {
+            document.getElementById(element).style.backgroundColor = ""
+        })
+    }
+
+    // Hinweis 3
+    if (!hintElement.open && key == 3) {
+        hint[1].forEach(element => {
+            document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
+        })
+    } else if (hintElement.open && key == 3) {
+        hint[1].forEach(element => {
+            document.getElementById(element).style.backgroundColor = ""
+        })
+    }
+
+    // Hinweis 4
+    if (!hintElement.open && (key == 4)) {
+        if (document.getElementById("candidates_checkbox").checked) {
+            hint[1].forEach(element => {
+                document.getElementById(element + "-" + hint[2]).style.backgroundColor = "rgba(0,255,0,0.37)"
+            })
+            hint[3].forEach(element => {
+                document.getElementById(element + "-" + hint[2]).style.backgroundColor = "rgba(255,0,0,0.37)"
+            })
+        } else {
+            alert("Bitte aktivieren Sie alle Kandidaten zuerst")
+        }
+    } else if (hintElement.open && (key == 4)) {
+        hint[1].forEach(element => {
+            document.getElementById(element + "-" + hint[2]).style.backgroundColor = ""
+        })
+        hint[3].forEach(element => {
+            document.getElementById(element + "-" + hint[2]).style.backgroundColor = ""
+        })
+    }
+
+
 }
