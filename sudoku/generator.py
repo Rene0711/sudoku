@@ -3,7 +3,7 @@ from random import randint, shuffle
 counter = 1
 
 
-def checkGrid(grid):
+def check_grid(grid):
     for row in range(0, 9):
         for col in range(0, 9):
             if grid[row][col] == 0:
@@ -12,7 +12,7 @@ def checkGrid(grid):
     return True
 
 
-def solveGrid(grid):
+def solve_grid(grid):
     global counter
     for i in range(0, 81):
         row = i // 9
@@ -48,11 +48,11 @@ def solveGrid(grid):
                                 square = [grid[i][6:9] for i in range(6, 9)]
                         if not value in (square[0] + square[1] + square[2]):
                             grid[row][col] = value
-                            if checkGrid(grid):
+                            if check_grid(grid):
                                 counter += 1
                                 break
                             else:
-                                if solveGrid(grid):
+                                if solve_grid(grid):
                                     return True
             break
     grid[row][col] = 0
@@ -61,7 +61,7 @@ def solveGrid(grid):
 numberList = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
-def fillGrid(grid):
+def fill_grid(grid):
     global counter
     for i in range(0, 81):
         row = i // 9
@@ -98,10 +98,10 @@ def fillGrid(grid):
                                 square = [grid[i][6:9] for i in range(6, 9)]
                         if not value in (square[0] + square[1] + square[2]):
                             grid[row][col] = value
-                            if checkGrid(grid):
+                            if check_grid(grid):
                                 return True
                             else:
-                                if fillGrid(grid):
+                                if fill_grid(grid):
                                     return True
             break
     grid[row][col] = 0
@@ -123,7 +123,7 @@ def handler(empty):
 
     if not empty:
         attempts = 5
-        fillGrid(grid)
+        fill_grid(grid)
 
         while attempts > 0:
             row = randint(0, 8)
@@ -141,7 +141,7 @@ def handler(empty):
                     copyGrid[r].append(grid[r][c])
 
             counter = 0
-            solveGrid(copyGrid)
+            solve_grid(copyGrid)
             if counter != 1:
                 grid[row][col] = backup
                 attempts -= 1
