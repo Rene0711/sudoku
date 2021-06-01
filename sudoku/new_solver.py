@@ -1,3 +1,4 @@
+from sudoku.algorithms.hidden_pair import hidden_pair
 from sudoku.algorithms.naked_quadruple import naked_quadruple
 from sudoku.algorithms.naked_single import naked_single
 from sudoku.algorithms.hidden_single import hidden_single
@@ -64,7 +65,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-    """
+    
 
     result_keys, values, outside_keys = naked_quadruple(value_obj)
     if result_keys is not False:
@@ -73,6 +74,9 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
+    """
+
+    hidden_pair(value_obj)
 
     return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
 
