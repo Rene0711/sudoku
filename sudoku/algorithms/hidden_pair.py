@@ -55,7 +55,7 @@ def check_column(values):
         for nmb in option_numbers:
             all_options[int(nmb)] = []
         for key, value in values.items():
-            if value.value is None and value.line is int(c):
+            if value.value is None and value.column is int(c):
                 for option in value.options:
                     count = all_options[option]
                     all_options[option] = count + [key]
@@ -84,7 +84,7 @@ def check_square(values):
         for nmb in option_numbers:
             all_options[int(nmb)] = []
         for key, value in values.items():
-            if value.value is None and value.line is int(s):
+            if value.value is None and value.square is int(s):
                 for option in value.options:
                     count = all_options[option]
                     all_options[option] = count + [key]
