@@ -3,17 +3,17 @@ function writeNumber() {
     var map = {};
     for (let i = 0; i < cells.length; i++) {
         cells[i].addEventListener("keydown", function (e) {
-            if (e.key == 1) cells[i].children[0].value = e.key
-            if (e.key == 2) cells[i].children[0].value = e.key
-            if (e.key == 3) cells[i].children[0].value = e.key
-            if (e.key == 4) cells[i].children[0].value = e.key
-            if (e.key == 5) cells[i].children[0].value = e.key
-            if (e.key == 6) cells[i].children[0].value = e.key
-            if (e.key == 7) cells[i].children[0].value = e.key
-            if (e.key == 8) cells[i].children[0].value = e.key
-            if (e.key == 9) cells[i].children[0].value = e.key
+            if (e.key == 1) cells[i].children[0].value = e.key , toggleCandidates(cells[i], false)
+            if (e.key == 2) cells[i].children[0].value = e.key , toggleCandidates(cells[i], false)
+            if (e.key == 3) cells[i].children[0].value = e.key , toggleCandidates(cells[i], false)
+            if (e.key == 4) cells[i].children[0].value = e.key , toggleCandidates(cells[i], false)
+            if (e.key == 5) cells[i].children[0].value = e.key , toggleCandidates(cells[i], false)
+            if (e.key == 6) cells[i].children[0].value = e.key , toggleCandidates(cells[i], false)
+            if (e.key == 7) cells[i].children[0].value = e.key , toggleCandidates(cells[i], false)
+            if (e.key == 8) cells[i].children[0].value = e.key , toggleCandidates(cells[i], false)
+            if (e.key == 9) cells[i].children[0].value = e.key , toggleCandidates(cells[i], false)
 
-            if (e.keyCode == 8 || e.keyCode == 46) cells[i].children[0].value = ''
+            if (e.keyCode == 8 || e.keyCode == 46) cells[i].children[0].value = '' , toggleCandidates(cells[i], true)
 
             if (e.shiftKey && e.keyCode == 49) setCandidate(cells[i].children[1].children[0], 1)
             if (e.shiftKey && e.keyCode == 50) setCandidate(cells[i].children[1].children[1], 2)
@@ -32,6 +32,19 @@ function writeNumber() {
 
         })
     }
+}
+
+function toggleCandidates(cell, toggle) {
+    if (!toggle) {
+        for (let i = 0; i < 9; i++) {
+            cell.children[1].children[i].style.display = "none"
+        }
+    }else{
+        for (let i = 0; i < 9; i++) {
+            cell.children[1].children[i].style.display = ""
+        }
+    }
+
 }
 
 function arrowMoves(key) {
