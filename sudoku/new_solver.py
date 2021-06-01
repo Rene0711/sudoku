@@ -10,7 +10,7 @@ from sudoku.algorithms.x_wing import x_wing
 
 from sudoku.algorithms.helper.find_empty import find_empty
 from sudoku.algorithms.helper.squares import get_square, square_finder
-from sudoku.algorithms.helper.marked_area import marked_area
+from sudoku.algorithms.helper.marked_area import marked_area, marked_area_two
 
 
 def solver(values, candidates):
@@ -82,10 +82,10 @@ def solver(values, candidates):
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
     """
 
-    result_keys, values, outside_keys = x_wing(value_obj)
+    result_keys, values, outside_keys, house_type = x_wing(value_obj)
     if result_keys is not False:
         hints["1"] = ["Es ist ein X-Wing zu finden"]
-        hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area(result_keys)]
+        hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area_two(result_keys, house_type)]
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)

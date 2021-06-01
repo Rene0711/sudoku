@@ -28,3 +28,22 @@ def marked_area(values):
 
     else:
         return square_finder(values[0])
+
+
+def marked_area_two(values, house_type):
+    fields = []
+
+    for value in values:
+        if house_type is "line":
+            letters = "ABCDEFGHI"
+
+            for l in letters:
+                fields.append(l + value[-1])
+        else:
+            numbers = "123456789"
+
+            for n in numbers:
+                fields.append(value[0] + n)
+
+    return list(dict.fromkeys(fields))
+

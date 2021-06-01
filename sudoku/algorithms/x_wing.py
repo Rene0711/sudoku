@@ -4,13 +4,13 @@ import numpy
 def x_wing(values):
     found_keys, option, outside_keys = check_line(values)
     if found_keys is not False:
-        return found_keys, option, outside_keys
+        return found_keys, option, outside_keys, "line"
 
     found_keys, options, outside_keys = check_column(values)
     if found_keys is not False:
-        return found_keys, option, outside_keys
+        return found_keys, option, outside_keys, "column"
 
-    return False, None, None
+    return False, None, None, None
 
 
 def check_line(values):
