@@ -11,7 +11,7 @@ def hidden_single(values):
                 square = check_square(key, value.square, option, values)
                 if square is not False:
                     return key, option
-    return False
+    return False, None
 
 
 def check_column(search_key, column, search_option, values):
