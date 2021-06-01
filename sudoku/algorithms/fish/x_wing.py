@@ -4,13 +4,13 @@ import numpy
 def x_wing(values):
     found_keys, option, outside_keys = check_line(values)
     if found_keys is not False:
-        return found_keys, option, outside_keys
+        return found_keys, option, outside_keys, "line"
 
     found_keys, options, outside_keys = check_column(values)
     if found_keys is not False:
-        return found_keys, option, outside_keys
+        return found_keys, option, outside_keys, "column"
 
-    return False, None, None
+    return False, None, None, None
 
 
 def check_line(values):
@@ -44,7 +44,6 @@ def check_line(values):
             if numpy.array_equal(possible["column"], search_possible["column"]) \
                     and possible["option"] is search_possible["option"] \
                     and possible["line"] is not search_possible["line"]:
-                print("juhu")
                 result_keys = possible["value"] + search_possible["value"]
                 outside_keys = []
                 for key, value in values.items():
@@ -89,7 +88,6 @@ def check_column(values):
             if numpy.array_equal(possible["line"], search_possible["line"]) \
                     and possible["option"] is search_possible["option"] \
                     and possible["column"] is not search_possible["column"]:
-                print("juhu")
                 result_keys = possible["value"] + search_possible["value"]
                 outside_keys = []
                 for key, value in values.items():
