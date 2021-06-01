@@ -44,7 +44,6 @@ def check_line(values):
             if numpy.array_equal(possible["column"], search_possible["column"]) \
                     and possible["option"] is search_possible["option"] \
                     and possible["line"] is not search_possible["line"]:
-                print("juhu")
                 result_keys = possible["value"] + search_possible["value"]
                 outside_keys = []
                 for key, value in values.items():
@@ -89,7 +88,6 @@ def check_column(values):
             if numpy.array_equal(possible["line"], search_possible["line"]) \
                     and possible["option"] is search_possible["option"] \
                     and possible["column"] is not search_possible["column"]:
-                print("juhu")
                 result_keys = possible["value"] + search_possible["value"]
                 outside_keys = []
                 for key, value in values.items():
