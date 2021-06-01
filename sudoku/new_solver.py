@@ -15,6 +15,7 @@ def solver(values, candidates):
     value_obj = find_empty(values_to_objects(filled(values), candidates))
     hints = dict()
 
+    """
     result_key = naked_single(value_obj)
     if result_key is not False:
         hints["1"] = ["Es ist ein Naked Single zu finden"]
@@ -22,7 +23,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte das markierte Feld", str(result_key)]
         hints["4"] = ["In dieses Feld kommt folgender Wert", str(result_key), str(value_obj[result_key].options[0])]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-    """
+    
     result_key, value = hidden_single(value_obj)
     if result_key is not False:
         hints["1"] = ["Es ist ein Hidden Single zu finden"]
@@ -65,7 +66,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-    
+    """
 
     result_keys, values, outside_keys = naked_quadruple(value_obj)
     if result_keys is not False:
@@ -74,11 +75,11 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-    
 
+    """
     result_keys, values = hidden_pair(value_obj)
     if result_keys is not False:
-        hints["1"] = ["Es ist ein Naked Quadruple zu finden"]
+        hints["1"] = ["Es ist ein Hidden Pair zu finden"]
         hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area(result_keys)]
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values]
