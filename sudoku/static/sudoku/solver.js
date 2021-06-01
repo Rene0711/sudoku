@@ -29,6 +29,7 @@ function writeNumber() {
             if (e.keyCode == 38) arrowMoves(e.keyCode)
             if (e.keyCode == 39) arrowMoves(e.keyCode)
             if (e.keyCode == 40) arrowMoves(e.keyCode)
+
         })
     }
 }
@@ -71,7 +72,6 @@ function setCandidate(field, key) {
     } else {
         field.children[0].value = ""
         field.children[1].innerHTML = "&nbsp;"
-
     }
 }
 
@@ -86,7 +86,6 @@ function disableStarterNumbers() {
 
 
 function markField(id, key, hint) {
-    removeColor()
     if (hint.length > 1) {
         let algoName = document.getElementById("key-1-p")
         if (algoName.innerHTML.includes("Naked Single") || algoName.innerHTML.includes("Hidden Single")) {
@@ -103,8 +102,8 @@ function markField(id, key, hint) {
 }
 
 function showCandidates(candidates) {
+    let candidateFields = document.getElementsByClassName("candidate_box")
     if (document.getElementById("candidates_checkbox").checked) {
-        let candidateFields = document.getElementsByClassName("candidate-box")
         for (let i = 0; i < candidateFields.length; i++) {
             candidateFields[i].removeAttribute("style")
         }
@@ -122,7 +121,6 @@ function showCandidates(candidates) {
             }
         }
     } else {
-        let candidateFields = document.getElementsByClassName("candidate-box")
         for (let i = 0; i < candidateFields.length; i++) {
             candidateFields[i].style.display = "none"
         }
@@ -161,12 +159,15 @@ function detailsClose() {
     })
 }
 
-function removeColor() {
+function removeColors() {
     const fields = document.getElementsByClassName("sudoku-board-cell")
+    const candidateFields = document.getElementsByClassName("candidate_box")
     for (let i = 0; i < fields.length; i++) {
         let children = fields[i].children
         children[0].style.backgroundColor = ""
-        children[0].placeholder = ""
+    }
+    for (let i = 0; i < candidateFields.length; i++) {
+        candidateFields[i].style.backgroundColor = ""
     }
 }
 
@@ -175,28 +176,27 @@ function naked_subsets(id, key, hint) {
 
     // Hinweis 2
     if (!hintElement.open && key == 2) {
+        removeColors()
         hint[1].forEach(element => {
             document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
         })
     } else if (hintElement.open && key == 2) {
-        hint[1].forEach(element => {
-            document.getElementById(element).style.backgroundColor = ""
-        })
+        removeColors()
     }
 
     // Hinweis 3
     if (!hintElement.open && key == 3) {
+        removeColors()
         hint[1].forEach(element => {
             document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
         })
     } else if (hintElement.open && key == 3) {
-        hint[1].forEach(element => {
-            document.getElementById(element).style.backgroundColor = ""
-        })
+        removeColors()
     }
 
     // Hinweis 4
     if (!hintElement.open && (key == 4)) {
+        removeColors()
         if (document.getElementById("candidates_checkbox").checked) {
             hint[1].forEach(element => {
                 for (let i of hint[2]) {
@@ -218,12 +218,7 @@ function naked_subsets(id, key, hint) {
             alert("Bitte aktivieren Sie alle Kandidaten zuerst")
         }
     } else if (hintElement.open && (key == 4)) {
-        hint[1].forEach(element => {
-            document.getElementById(element + "-" + hint[2]).style.backgroundColor = ""
-        })
-        hint[3].forEach(element => {
-            document.getElementById(element + "-" + hint[2]).style.backgroundColor = ""
-        })
+        removeColors()
     }
 }
 
@@ -234,28 +229,27 @@ function hidden_subsets(id, key, hint) {
 
     // Hinweis 2
     if (!hintElement.open && key == 2) {
+        removeColors()
         hint[1].forEach(element => {
             document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
         })
     } else if (hintElement.open && key == 2) {
-        hint[1].forEach(element => {
-            document.getElementById(element).style.backgroundColor = ""
-        })
+        removeColors()
     }
 
     // Hinweis 3
     if (!hintElement.open && key == 3) {
+        removeColors()
         hint[1].forEach(element => {
             document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
         })
     } else if (hintElement.open && key == 3) {
-        hint[1].forEach(element => {
-            document.getElementById(element).style.backgroundColor = ""
-        })
+        removeColors()
     }
 
     // Hinweis 4
     if (!hintElement.open && (key == 4)) {
+        removeColors()
         if (document.getElementById("candidates_checkbox").checked) {
             hint[1].forEach(element => {
                 document.getElementById(element + "-" + hint[2][0]).style.backgroundColor = "rgba(0,255,0,0.37)"
@@ -273,20 +267,7 @@ function hidden_subsets(id, key, hint) {
             alert("Bitte aktivieren Sie alle Kandidaten zuerst")
         }
     } else if (hintElement.open && (key == 4)) {
-        hint[1].forEach(element => {
-            document.getElementById(element + "-" + hint[2][0]).style.backgroundColor = ""
-            document.getElementById(element + "-" + hint[2][1]).style.backgroundColor = ""
-
-            for (let i = 1; i <= 9; i++) {
-                if (document.getElementById(element + "-" + i).children[0].value != ''
-                    && document.getElementById(element + "-" + i).children[0].value != hint[2][0]
-                    && document.getElementById(element + "-" + i).children[0].value != hint[2][1]) {
-                    document.getElementById(element + "-" + i).style.backgroundColor = ""
-                }
-            }
-
-
-        })
+        removeColors()
     }
 
 }
@@ -298,32 +279,33 @@ function naked_hiddenSingle(id, key, hint) {
 
     // Hinweis 2
     if (!hintElement.open && key == 2) {
+        removeColors()
         hint[1].forEach(element => {
             document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
         })
     } else if (hintElement.open && key == 2) {
-        hint[1].forEach(element => {
-            document.getElementById(element).style.backgroundColor = ""
-        })
+        removeColors()
     }
 
     // Hinweis 3
     if (!hintElement.open && (key == 3)) {
+        removeColors()
         field.style.backgroundColor = "rgba(255,0,0,0.37)"
 
     } else if (hintElement.open && (key == 3)) {
-        field.style.backgroundColor = ""
+        removeColors()
     }
 
     // Hinweis 4
     if (!hintElement.open && (key == 4)) {
+        removeColors()
         if (document.getElementById("candidates_checkbox").checked) {
             candidateField.style.backgroundColor = "rgba(0,255,0,0.37)"
         } else {
             alert("Bitte aktivieren Sie alle Kandidaten zuerst")
         }
     } else if (hintElement.open && (key == 4)) {
-        candidateField.style.backgroundColor = ""
+        removeColors()
     }
 }
 
@@ -332,28 +314,27 @@ function locked_candidates(id, key, hint) {
 
     // Hinweis 2
     if (!hintElement.open && key == 2) {
+        removeColors()
         hint[1].forEach(element => {
             document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
         })
     } else if (hintElement.open && key == 2) {
-        hint[1].forEach(element => {
-            document.getElementById(element).style.backgroundColor = ""
-        })
+        removeColors()
     }
 
     // Hinweis 3
     if (!hintElement.open && key == 3) {
+        removeColors()
         hint[1].forEach(element => {
             document.getElementById(element).style.backgroundColor = "rgba(255,0,0,0.37)"
         })
     } else if (hintElement.open && key == 3) {
-        hint[1].forEach(element => {
-            document.getElementById(element).style.backgroundColor = ""
-        })
+        removeColors()
     }
 
     // Hinweis 4
     if (!hintElement.open && (key == 4)) {
+        removeColors()
         if (document.getElementById("candidates_checkbox").checked) {
             hint[1].forEach(element => {
                 document.getElementById(element + "-" + hint[2]).style.backgroundColor = "rgba(0,255,0,0.37)"
@@ -365,12 +346,7 @@ function locked_candidates(id, key, hint) {
             alert("Bitte aktivieren Sie alle Kandidaten zuerst")
         }
     } else if (hintElement.open && (key == 4)) {
-        hint[1].forEach(element => {
-            document.getElementById(element + "-" + hint[2]).style.backgroundColor = ""
-        })
-        hint[3].forEach(element => {
-            document.getElementById(element + "-" + hint[2]).style.backgroundColor = ""
-        })
+        removeColors()
     }
 
 
