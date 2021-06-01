@@ -8,6 +8,7 @@
 
 .sudoku-board-cell {
     display: inline-block;
+    margin-right: -3.97px;
     position: relative;
     border: 1px solid #ddd;
     background: white;

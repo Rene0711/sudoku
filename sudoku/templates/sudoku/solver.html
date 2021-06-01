@@ -25,7 +25,7 @@
                         {% for l in "ABCDEFGHI" %}
                             <div class="sudoku-board-cell">
                                 <input id="{{ l }}{{ n }}" type="text" name="{{ l }}{{ n }}" pattern="\d"
-                                       value="{{ values|letter:l|number:n }}" maxlength="1">
+                                       value="{{ values|letter:l|number:n }}" maxlength="1" readonly>
                                 <div id="candidates-{{ l }}{{ n }}" class="candidates">
                                     <div class="candidate_box" id="{{ l }}{{ n }}-1">
                                         <input type="hidden" name="{{ l }}{{ n }}-1" value=""><p>&nbsp;</p>

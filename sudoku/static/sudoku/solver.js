@@ -1,10 +1,44 @@
+function writeNumber() {
+    const cells = document.getElementsByClassName("sudoku-board-cell")
+    var map = {};
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].addEventListener("keydown", function (e) {
+            if (e.key == 1) cells[i].children[0].value = e.key
+            if (e.key == 2) cells[i].children[0].value = e.key
+            if (e.key == 3) cells[i].children[0].value = e.key
+            if (e.key == 4) cells[i].children[0].value = e.key
+            if (e.key == 5) cells[i].children[0].value = e.key
+            if (e.key == 6) cells[i].children[0].value = e.key
+            if (e.key == 7) cells[i].children[0].value = e.key
+            if (e.key == 8) cells[i].children[0].value = e.key
+            if (e.key == 9) cells[i].children[0].value = e.key
+
+            if (e.keyCode == 8 || e.keyCode == 46) cells[i].children[0].value = ''
+            if (e.keyCode == 65 && e.keyCode == 68) {
+                cells[i].children[1].children[0].children[0].value = ""
+                cells[i].children[1].children[0].children[1].innerHTML = "&nbsp;"
+            }
+        })
+    }
+}
+
+function disableStarterNumbers() {
+    const cells = document.getElementsByClassName("sudoku-board-cell")
+    for (let i = 0; i < cells.length; i++) {
+        if (cells[i].children[0].value) {
+            cells[i].children[0].clickable = false
+        }
+    }
+}
+
+
 function markField(id, key, hint) {
     removeColor()
     if (hint.length > 1) {
         let algoName = document.getElementById("key-1-p")
         if (algoName.innerHTML.includes("Naked Single") || algoName.innerHTML.includes("Hidden Single")) {
             naked_hiddenSingle(id, key, hint)
-        } else if (algoName.innerHTML.includes("Locked Candidates Type")) {
+        } else if (algoName.innerHTML.includes("Locked Candidates Type") || algoName.innerHTML.includes("Naked Pair")) {
             locked_candidates(id, key, hint)
         }
 
@@ -39,8 +73,10 @@ function showCandidates(candidates) {
 }
 
 function onSiteLoad() {
+    //disableStarterNumbers()
     showCandidateButton()
     detailsClose()
+    writeNumber()
 }
 
 function showCandidateButton() {
@@ -56,7 +92,7 @@ function showCandidateButton() {
 function detailsClose() {
     const details = document.querySelectorAll("details")
 
-    details.forEach((targetDetail) => {
+    details.forEach(targetDetail => {
         targetDetail.addEventListener("click", () => {
             details.forEach((detail) => {
                 if (detail !== targetDetail) {
