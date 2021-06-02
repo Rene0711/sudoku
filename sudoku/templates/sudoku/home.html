@@ -8,52 +8,54 @@
     <link rel="stylesheet" type="text/css" href="{% static 'sudoku/home.css' %}">
 </head>
 <body>
-<ul>
-    <li><a class="active" href="/">Home</a></li>
+<ul class="header">
+    <li><a class="active" href="/"><img class="logo" src="{% static "pictures/LOGO_SUDOKU_BLUE.png" %}"></a></li>
     <li style="float:right"><a href="/sudoku-solver/">Sudoku Helper</a></li>
     <li style="float:right"><a href="/sudoku-trainer/">Sudoku Trainer</a></li>
     <li style="float:right"><a href="/sudoku-creator/">Sudoku Creator</a></li>
 </ul>
-<div style="padding:20px;margin-top:30px;">
-    <h1>Sudoku Helper - Alles Rund um Sudokus</h1>
-    <div class="row">
-        <div class="column">
-            <h2>Beliebte Sudokus</h2>
-            <p>Bezwinge einige der berühmtesten Sudokus</p>
-            <div class="slider">
-                <div class="slideshow-container">
-
-                    <div class="mySlides fade">
-                        <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=origxorig:format=png/path/s11bd04e0af97257c/image/ia6fcbd85de4fd802/version/1565017678/image.png">
-                        <div class="text">Sudoku #1</div>
+<div class="body_div">
+    <h1 class="title_text">LOGO SUDOKU</h1>
+    <div class="sub_text_box">
+        <p class="title_sub_text">LOGO SUDOKU ist deine Anlaufstelle für deinen Sudoku Rätselspaß. Hier wird dir alles
+            geboten. Schau dich gern um und teste alle unsere Features</p>
+    </div>
+    <div class="feature_box_color">
+        <div class="feature_box">
+            <a href="/sudoku-creator/">
+                <div class="card">
+                    <div>
+                        <img class="images" src="{% static "pictures/20945015.jpg" %}">
                     </div>
-
-                    <div class="mySlides fade">
-                        <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=origxorig:format=png/path/s11bd04e0af97257c/image/ic16b4118433c2c91/version/1565017685/image.png">
-                        <div class="text">Sudoku #2</div>
+                    <div>
+                        <h4 class="section_title">Sudoku Creator</h4>
+                        <p class="section_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in verschiedenen
+                            Schwierigkeitsgraden zu erstellen.</p>
                     </div>
-
-                    <div class="mySlides fade">
-                        <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=origxorig:format=png/path/s11bd04e0af97257c/image/ia5f0c5352fda80dc/version/1565017691/image.png">
-                        <div class="text">Sudoku #3</div>
-                    </div>
-
                 </div>
-                <br>
-
-                <div style="text-align:center">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+            </a>
+            <a href="/sudoku-trainer/">
+                <div class="card">
+                    <div>
+                        <img class="images" src="{% static "pictures/Wavy_Ppl-01_Single-04.jpg" %}">
+                    </div>
+                    <div>
+                        <h4 class="section_title">Sudoku Trainer</h4>
+                        <p class="section_text">Der Sudoku Trainer ermöglicht es dir die verschiedensten Lösungsstrategien zu üben und zu vertiefen.</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="column">
-            <h2>Daily Challenge</h2>
-            <p>Schaue jeden Tag vorbei und bezwinge die daily challenge</p>
-            <div class="calendar">
-                <img src="https://docs.microsoft.com/de-de/windows/uwp/design/controls-and-patterns/images/controls_calendar_monthview.png">
-            </div>
+            </a>
+            <a href="/sudoku-solver/">
+                <div class="card">
+                    <div>
+                        <img class="images" src="{% static "pictures/19198684.jpg" %}">
+                    </div>
+                    <div>
+                        <h4 class="section_title">Sudoku Helper</h4>
+                        <p class="section_text">Kommst du bei einem Sudoku mal nicht weiter, dann wird dir der Sudoku Helper helfen.</p>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
 
