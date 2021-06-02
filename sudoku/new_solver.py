@@ -16,7 +16,7 @@ from sudoku.algorithms.helper.marked_area import marked_area_two, marked_area
 def solver(values, candidates):
     value_obj = find_empty(values_to_objects(filled(values), candidates))
     hints = dict()
-
+    """
     result_key = naked_single(value_obj)
     if result_key is not False:
         hints["1"] = ["Es ist ein Naked Single zu finden"]
@@ -24,7 +24,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte das markierte Feld", str(result_key)]
         hints["4"] = ["In dieses Feld kommt folgender Wert", str(result_key), str(value_obj[result_key].options[0])]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-    
+    """
     result_key, value = hidden_single(value_obj)
     if result_key is not False:
         hints["1"] = ["Es ist ein Hidden Single zu finden"]
@@ -32,7 +32,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte das markierte Feld", str(result_key)]
         hints["4"] = ["In dieses Feld kommt folgender Wert", str(result_key), value]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-    
+    """
     result_keys, value, outside_keys = locked_candidates_pointing(value_obj)
     if result_keys is not False:
         hints["1"] = ["Es ist ein Locked Candidates Type 1 (Pointing) zu finden"]
@@ -48,7 +48,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, value, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-    
+
     result_keys, values, outside_keys = naked_pair(value_obj)
     if result_keys is not False:
         hints["1"] = ["Es ist ein Naked Pair zu finden"]
@@ -81,7 +81,6 @@ def solver(values, candidates):
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
 
-
     result_keys, values, outside_keys, house_type = x_wing(value_obj)
     if result_keys is not False:
         hints["1"] = ["Es ist ein X-Wing zu finden"]
@@ -89,8 +88,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-
-
+    """
     return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
 
 
@@ -127,9 +125,9 @@ def values_to_objects(values, candidates):
         options = []
         if value is None:
             if given_candidates:
-                    for c in "123456789":
-                        if candidates[key + "-" + c] != '':
-                            options.append(int(candidates[key + "-" + c]))
+                for c in "123456789":
+                    if candidates[key + "-" + c] != '':
+                        options.append(int(candidates[key + "-" + c]))
             else:
                 options = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 

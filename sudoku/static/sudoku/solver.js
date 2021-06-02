@@ -34,14 +34,51 @@ function writeNumber() {
     }
 }
 
+function superFancy() {
+    const candidateFields = document.getElementsByClassName("candidate_box")
+    const algoName = document.getElementById("key-1-p")
+    document.addEventListener("keydown", function (e) {
+        if (e.code === "KeyA") {
+            if (algoName.innerHTML.includes("Naked Single") || algoName.innerHTML.includes("Hidden Single")) {
+                for (let i = 0; i < candidateFields.length; i++) {
+                    if (candidateFields[i].style.backgroundColor === "rgba(0, 255, 0, 0.37)") {
+                        let singleNumber = candidateFields[i].children[0].value
+                        let parentCell = candidateFields[i].parentElement.parentElement
+
+                        for (let i = 0; i < 9; i++) {
+                            parentCell.children[1].children[i].children[0].value = ""
+                            parentCell.children[1].children[i].children[1].innerHTML = "&nbsp;"
+                        }
+
+                        parentCell.children[0].value = singleNumber
+                    }
+                }
+                removeColors()
+            } else {
+                for (let i = 0; i < candidateFields.length; i++) {
+                    if (candidateFields[i].style.backgroundColor === "rgba(255, 0, 0, 0.37)") {
+                        candidateFields[i].children[0].value = ""
+                        candidateFields[i].children[1].innerHTML = "&nbsp;"
+
+                    }
+                }
+                removeColors()
+            }
+
+
+        }
+    })
+}
+
 function toggleCandidates(cell, toggle) {
     if (!toggle) {
         for (let i = 0; i < 9; i++) {
             cell.children[1].children[i].style.display = "none"
         }
-    }else{
+    } else {
         for (let i = 0; i < 9; i++) {
             cell.children[1].children[i].style.display = ""
+
         }
     }
 
@@ -85,6 +122,7 @@ function setCandidate(field, key) {
     } else {
         field.children[0].value = ""
         field.children[1].innerHTML = "&nbsp;"
+
     }
 }
 
@@ -141,6 +179,7 @@ function showCandidates(candidates) {
 }
 
 function onSiteLoad() {
+    superFancy()
     //disableStarterNumbers()
     showCandidateButton()
     detailsClose()
