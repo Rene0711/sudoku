@@ -1,12 +1,14 @@
 body {
     margin: 0;
-    font-family: Georgia, serif;
+    background-color: #1f42c3;
 }
 
 .header {
     height: 69px;
     background-color: white;
 }
+
+
 
 ul {
     list-style-type: none;
@@ -39,10 +41,6 @@ li a {
 }
 
 li a:hover:not(.active) {
-    color: #1f42c3;
-}
-
-.active {
     color: #1f42c3;
 }
 

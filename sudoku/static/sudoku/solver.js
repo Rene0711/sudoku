@@ -147,6 +147,8 @@ function markField(id, key, hint) {
             hidden_subsets(id, key, hint)
         } else if (algoName.innerHTML.includes("Naked")) {
             naked_subsets(id, key, hint)
+        }else {
+            locked_candidates(id, key, hint)
         }
 
     }

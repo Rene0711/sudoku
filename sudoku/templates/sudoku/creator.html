@@ -7,11 +7,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'sudoku/menu.css' %}">
 </head>
 <body>
-<ul>
-    <li><a href="/">Home</a></li>
+<ul class="header">
+    <li><a class="active" href="/"><img class="logo" src="{% static "pictures/LOGO_SUDOKU.png" %}"></a></li>
     <li style="float:right"><a href="/sudoku-solver/">Sudoku Helper</a></li>
     <li style="float:right"><a href="/sudoku-trainer/">Sudoku Trainer</a></li>
-    <li style="float:right"><a class="active" href="/sudoku-creator/">Sudoku Creator</a></li>
+    <li class="active" style="float:right"><a href="/sudoku-creator/">Sudoku Creator</a></li>
 </ul>
+<div class="body_div">
+
+</div>
 </body>
 </html>

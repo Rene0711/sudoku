@@ -1,31 +1,30 @@
 {% load static %}
 {% load sudoku_extras %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sudoku Solver</title>
+    <meta charset="UTF-8">
+    <title>Strategie</title>
     <link rel="stylesheet" type="text/css" href="{% static 'sudoku/menu.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/solver.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/sudokuGrid.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/strategies.css' %}">
 </head>
-<body onload="onSiteLoad()">
+<body>
 <ul class="header">
     <li><a href="/"><img class="logo" src="{% static "pictures/LOGO_SUDOKU.png" %}"></a></li>
     <li style="float:right"><a href="/sudoku-solver/">Sudoku Helper</a></li>
     <li style="float:right" class="active"><a href="/sudoku-trainer/">Sudoku Trainer</a></li>
     <li style="float:right"><a href="/sudoku-creator/">Sudoku Creator</a></li>
 </ul>
-
 <div class="body_div">
-    <h1 class="title_text">LOGO SUDOKU - Helper</h1>
+    <h1 class="title_text">{{ request.GET.name }}</h1>
     <div class="sub_text_box">
-        <p class="title_sub_text">Kommst du bei einem Sudoku mal nicht weiter, dann wird dir der Sudoku Helper
-            helfen.</p>
+        <p class="title_sub_text">Der Trainer ermöglicht es dir die verschiedensten Lösungsstrategien zu üben und zu
+            vertiefen.</p>
     </div>
     <div class="row">
         <div class="column">
             <div id="sudoku" class="sudoku-board show-candidates" data-board-size="9">
-                <form action="/sudoku-solver/" method="post">
+                <form action="/strategies" method="post">
                     {% csrf_token %}
                     {% for n in "123456789" %}
                         {% for l in "ABCDEFGHI" %}
@@ -77,39 +76,10 @@
                     <input onclick="showCandidateButton()" id="solve" type="submit" class="buttons" value="Hilfe">
                 </form>
             </div>
-            <form action="/sudoku-solver/" method="post">
-                <input type="hidden" id="gen1" name="gen" value="1">
-                <input id="generate" type="submit" class="buttons" value="Generieren">
-            </form>
-
-            <form action="/sudoku-solver/" method="post">
-                <input type="hidden" id="gen3" name="gen" value="2">
-                <input id="clear" type="submit" class="buttons" value="Löschen">
-            </form>
-
-        </div>
-        <div class="column">
-
-            <article hidden class="switch" id="candidateButton">
-                <input id="candidates_checkbox" type="checkbox" onclick="showCandidates({{ candidates }})">
-                <div>
-                    <span>Show candidates</span>
-                </div>
-
-            </article>
-            <div class="hints_box">
-                {% for key, hint in hints.items %}
-                    <details>
-                        <summary id="key-{{ key }}" onclick="markField(id, {{ key }}, {{ hint }})">Hinweis {{ key }}:
-                        </summary>
-                        <p id="key-{{ key }}-p">{{ hint.0 }}</p>
-                    </details>
-                {% endfor %}
-
-            </div>
         </div>
     </div>
 </div>
-<script src="{% static 'sudoku/solver.js' %}"></script>
+
+
 </body>
 </html>

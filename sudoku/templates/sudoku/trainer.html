@@ -5,13 +5,142 @@
     <meta charset="UTF-8">
     <title>Sudoku Trainer</title>
     <link rel="stylesheet" type="text/css" href="{% static 'sudoku/menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/trainer.css' %}">
 </head>
-<body>
-<ul>
-    <li><a href="/">Home</a></li>
+<body onload="onSiteLoad()">
+<ul class="header">
+    <li><a href="/"><img class="logo" src="{% static "pictures/LOGO_SUDOKU.png" %}"></a></li>
     <li style="float:right"><a href="/sudoku-solver/">Sudoku Helper</a></li>
-    <li style="float:right"><a class="active" href="/sudoku-trainer/">Sudoku Trainer</a></li>
+    <li style="float:right" class="active"><a href="/sudoku-trainer/">Sudoku Trainer</a></li>
     <li style="float:right"><a href="/sudoku-creator/">Sudoku Creator</a></li>
 </ul>
+<div class="body_div">
+    <h1 class="title_text">LOGO SUDOKU - Trainer</h1>
+    <div class="sub_text_box">
+        <p class="title_sub_text">Der Trainer ermöglicht es dir die verschiedensten Lösungsstrategien zu üben und zu
+            vertiefen.</p>
+    </div>
+    <div class="strategies">
+        <details>
+            <summary>Singles</summary>
+
+            <div class="feature_box">
+                <a href="/strategies?name=naked_single">
+                    <div class="card">
+                        <div>
+                            <h4 class="section_title">Naked Single</h4>
+                            <p class="section_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in
+                                verschiedenen
+                                Schwierigkeitsgraden zu erstellen.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="/strategies?name=hidden_single">
+                    <div class="card">
+                        <div>
+                            <h4 class="section_title">Hidden Single</h4>
+                            <p class="section_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in
+                                verschiedenen
+                                Schwierigkeitsgraden zu erstellen.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </details>
+        <details>
+            <summary>Intersections</summary>
+            <div class="feature_box">
+                <a href="/strategies?name=locked_candidates_claiming">
+                    <div class="card">
+                        <div>
+                            <h4 class="section_title">Locked Candidates Type 1</h4>
+                            <p class="section_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in
+                                verschiedenen
+                                Schwierigkeitsgraden zu erstellen.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="/strategies?name=locked_candidates_pointing">
+                    <div class="card">
+                        <div>
+                            <h4 class="section_title">Locked Candidates Type 2</h4>
+                            <p class="section_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in
+                                verschiedenen
+                                Schwierigkeitsgraden zu erstellen.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </details>
+        <details>
+            <summary>Nakeds</summary>
+            <div class="feature_box">
+                <a href="/strategies?name=naked_pair">
+                    <div class="card">
+                        <div>
+                            <h4 class="section_title">Naked Pair</h4>
+                            <p class="section_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in
+                                verschiedenen
+                                Schwierigkeitsgraden zu erstellen.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="/strategies?name=naked_triple">
+                    <div class="card">
+                        <div>
+                            <h4 class="section_title">Naked Triple</h4>
+                            <p class="section_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in
+                                verschiedenen
+                                Schwierigkeitsgraden zu erstellen.</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="/strategies?name=naked_quadruple">
+                    <div class="card">
+                        <div>
+                            <h4 class="section_title">Naked Quadruple</h4>
+                            <p class="section_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in
+                                verschiedenen
+                                Schwierigkeitsgraden zu erstellen.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </details>
+        <details>
+            <summary>Hiddens</summary>
+
+            <div class="feature_box">
+                <a href="/strategies?name=hidden_pair">
+                    <div class="card">
+                        <div>
+                            <h4 class="section_title">Hidden Pair</h4>
+                            <p class="section_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in
+                                verschiedenen
+                                Schwierigkeitsgraden zu erstellen.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </details>
+        <details>
+            <summary>Fish</summary>
+
+            <div class="feature_box">
+                <a href="/strategies?name=x_wing">
+                    <div class="card">
+                        <div>
+                            <h4 class="section_title">X-Wing</h4>
+                            <p class="section_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in
+                                verschiedenen
+                                Schwierigkeitsgraden zu erstellen.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </details>
+    </div>
+</div>
+<script src="{% static 'sudoku/trainer.js' %}"></script>
 </body>
 </html>
