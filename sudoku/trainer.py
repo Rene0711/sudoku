@@ -1,6 +1,6 @@
 from sudoku.algorithms.fish.x_wing import x_wing
 from sudoku.algorithms.helper.find_empty import find_empty
-from sudoku.algorithms.helper.marked_area import marked_area, marked_area_two
+from sudoku.algorithms.helper.marked_area import marked_area, marked_area_two, marked_area_three
 from sudoku.algorithms.helper.squares import get_square, square_finder
 from sudoku.algorithms.hidden.hidden_pair import hidden_pair
 from sudoku.algorithms.intersections.locked_candidates_claiming import locked_candidates_claiming
@@ -8,6 +8,7 @@ from sudoku.algorithms.intersections.locked_candidates_pointing import locked_ca
 from sudoku.algorithms.naked.naked_pair import naked_pair
 from sudoku.algorithms.naked.naked_quadruple import naked_quadruple
 from sudoku.algorithms.naked.naked_triple import naked_triple
+from sudoku.algorithms.single_digit_patterns.string_kite import string_kite
 from sudoku.algorithms.singles.hidden_single import hidden_single
 from sudoku.algorithms.singles.naked_single import naked_single
 
@@ -133,6 +134,20 @@ def trainer(values, name):
         if result_keys is not False:
             hints["1"] = ["Es ist ein X-Wing zu finden"]
             hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area_two(result_keys, house_type)]
+            hints["3"] = ["Beachte die markierten Felder", result_keys]
+            hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
+            return objects_to_values(value_obj), hints, title, description, objects_to_candidates(value_obj)
+
+    if name == 'string_kite':
+        title = '2-String Kite'
+        description = 'Wenn wir eine Zeile und eine Spalte finden können, die nur noch zwei Kandidaten der Ziffer ' \
+                      'enthalten (die Schnüre des Drachens), so dass ein Kandidat der Zeile und ein Kandidat der ' \
+                      'Spalte sich im selben Block befinden, dann kann der Kandidat, der die beiden anderen Enden der ' \
+                      'Schnüre sieht, gelöscht werden. '
+        result_keys, values, outside_keys = string_kite(value_obj)
+        if result_keys is not False:
+            hints["1"] = ["Es ist ein 2-String Kite zu finden"]
+            hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area_three(result_keys)]
             hints["3"] = ["Beachte die markierten Felder", result_keys]
             hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
             return objects_to_values(value_obj), hints, title, description, objects_to_candidates(value_obj)

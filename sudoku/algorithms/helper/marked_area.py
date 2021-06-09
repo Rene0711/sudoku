@@ -47,3 +47,24 @@ def marked_area_two(values, house_type):
 
     return list(dict.fromkeys(fields))
 
+
+def marked_area_three(values):
+    fields = []
+
+    for value in values:
+        for search_value in values:
+            if value is not search_value and value[0] is search_value[0]:
+                numbers = "123456789"
+
+                for n in numbers:
+                    fields.append(value[0] + n)
+
+    for value in values:
+        for search_value in values:
+            if value is not search_value and value[1] is search_value[1]:
+                letters = "ABCDEFGHI"
+
+                for l in letters:
+                    fields.append(l + value[-1])
+
+    return list(dict.fromkeys(fields))
