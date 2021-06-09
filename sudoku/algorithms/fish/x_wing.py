@@ -6,7 +6,7 @@ def x_wing(values):
     if found_keys is not False:
         return found_keys, option, outside_keys, "line"
 
-    found_keys, options, outside_keys = check_column(values)
+    found_keys, option, outside_keys = check_column(values)
     if found_keys is not False:
         return found_keys, option, outside_keys, "column"
 

@@ -4,6 +4,7 @@ from sudoku.algorithms.intersections.locked_candidates_pointing import locked_ca
 from sudoku.algorithms.naked.naked_pair import naked_pair
 from sudoku.algorithms.naked.naked_quadruple import naked_quadruple
 from sudoku.algorithms.naked.naked_triple import naked_triple
+from sudoku.algorithms.single_digit_patterns.skyscraper import skyscraper
 from sudoku.algorithms.single_digit_patterns.string_kite import string_kite
 from sudoku.algorithms.singles.hidden_single import hidden_single
 from sudoku.algorithms.singles.naked_single import naked_single
@@ -17,7 +18,7 @@ from sudoku.algorithms.helper.marked_area import marked_area_two, marked_area, m
 def solver(values, candidates):
     value_obj = find_empty(values_to_objects(filled(values), candidates))
     hints = dict()
-    """"""
+    """
     result_key = naked_single(value_obj)
     if result_key is not False:
         hints["1"] = ["Es ist ein Naked Single zu finden", "naked_single"]
@@ -82,14 +83,22 @@ def solver(values, candidates):
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
 
-    result_keys, values, outside_keys, house_type = x_wing(value_obj)
+    result_keys, values, outside_keys = x_wing(value_obj)
     if result_keys is not False:
         hints["1"] = ["Es ist ein X-Wing zu finden"]
         hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area_two(result_keys, house_type)]
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-
+    """
+    result_keys, values, outside_keys, house_type = skyscraper(value_obj)
+    if result_keys is not False:
+        hints["1"] = ["Es ist ein Skyscraper zu finden"]
+        hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area_two(result_keys, house_type)]
+        hints["3"] = ["Beachte die markierten Felder", result_keys]
+        hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
+        return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
+    """
     result_keys, values, outside_keys = string_kite(value_obj)
     if result_keys is not False:
         hints["1"] = ["Es ist ein 2-String Kite zu finden"]
@@ -97,9 +106,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-
-    """"""
-
+    """
     return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
 
 
