@@ -6,6 +6,7 @@ body {
 .header {
     height: 69px;
     background-color: white;
+    z-index: 10;
 }
 
 
@@ -31,7 +32,7 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    width: 250px;
+    width: 240px;
     font-size: 1.337rem;
     font-family: 'Roboto', sans-serif;
     letter-spacing: normal;

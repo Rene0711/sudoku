@@ -12,7 +12,7 @@ body {
 }
 
 .active {
-    color: #1f42c3;
+    background-color: rgba(31,66,195,0.3);
 }
 
 .buttons {
@@ -24,6 +24,7 @@ body {
     text-align: center;
     display: inline-block;
     font-size: 16px;
+    cursor: pointer;
 }
 
 #solve {

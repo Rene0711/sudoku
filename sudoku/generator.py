@@ -107,7 +107,7 @@ def fill_grid(grid):
     grid[row][col] = 0
 
 
-def handler(empty):
+def handler(empty, diff):
     global counter
     grid = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -122,7 +122,7 @@ def handler(empty):
     ]
 
     if not empty:
-        attempts = 5
+        attempts = int(diff)
         fill_grid(grid)
 
         while attempts > 0:
@@ -149,9 +149,9 @@ def handler(empty):
     return grid
 
 
-def get_grid(empty):
+def get_grid(empty, diff):
     values = dict()
-    grid = handler(empty)
+    grid = handler(empty, diff)
     count = 0
     count2 = 0
 

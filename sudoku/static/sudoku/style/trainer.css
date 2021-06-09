@@ -12,7 +12,7 @@ body {
 }
 
 .active {
-    color: #1f42c3;
+    background-color: rgba(31,66,195,0.3);
 }
 
 .title_text {

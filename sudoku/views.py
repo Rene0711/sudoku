@@ -18,10 +18,10 @@ def index(request):
 def sudoku_solver(request):
     if request.POST:
         if request.POST['gen'] == "1":
-            values = sudoku.generator.get_grid(False)
+            values = sudoku.generator.get_grid(False, 5)
             return render(request, 'sudoku/solver.html', {'values': values})
         if request.POST['gen'] == '2':
-            values = sudoku.generator.get_grid(True)
+            values = sudoku.generator.get_grid(True, 0)
             return render(request, 'sudoku/solver.html', {'values': values})
         else:
             values = dict()
@@ -49,6 +49,9 @@ def sudoku_solver(request):
 
 
 def sudoku_creator(request):
+    if request.GET:
+        values = sudoku.generator.get_grid(False, request.GET['difficulty'])
+        return render(request, 'sudoku/creator.html', {'values': values})
     return render(request, 'sudoku/creator.html')
 
 
@@ -57,23 +60,14 @@ def sudoku_trainer(request):
 
 
 def strategies(request):
-    if request.POST:
-        values = dict()
-        candidates = dict()
+    hints = dict()
+    while len(hints) < 1:
+        values = sudoku.generator.get_grid(False, 5)
 
-        for l in "ABCDEFGHI":
-            for n in "123456789":
-                try:
-                    values[l + n] = request.POST[l + n]
-                except:
-                    pass
+        values, hints, name, description, candidates = trainer(values, request.GET["name"])
 
-                for c in "123456789":
-                    try:
-                        candidates[l + n + "-" + c] = request.POST[l + n + "-" + c]
-                    except:
-                        pass
-        values, hints, candidates = trainer(values, candidates)
-        return render(request, 'sudoku/strategies.html', {'values': values})
-    else:
-        return render(request, 'sudoku/strategies.html')
+    return render(request, 'sudoku/strategies.html', {'values': values,
+                                                      'hints': hints,
+                                                      'name': name,
+                                                      'description': description,
+                                                      'candidates': candidates})

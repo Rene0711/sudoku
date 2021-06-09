@@ -1,20 +1,109 @@
 {% load static %}
+{% load sudoku_extras %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Sudoku Creator</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/style/menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/style/sudokuGrid.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/style/creator.css' %}">
 </head>
-<body>
+<body onload="onSiteLoad()">
 <ul class="header">
-    <li><a class="active" href="/"><img class="logo" src="{% static "pictures/LOGO_SUDOKU.png" %}"></a></li>
+    <li><a href="/"><img class="logo" src="{% static "pictures/LOGO_SUDOKU.png" %}"></a></li>
     <li style="float:right"><a href="/sudoku-solver/">Sudoku Helper</a></li>
     <li style="float:right"><a href="/sudoku-trainer/">Sudoku Trainer</a></li>
-    <li class="active" style="float:right"><a href="/sudoku-creator/">Sudoku Creator</a></li>
+    <li style="float:right" class="active"><a href="/sudoku-creator/">Sudoku Creator</a></li>
 </ul>
 <div class="body_div">
+    <h1 class="title_text">LOGO SUDOKU - Creator</h1>
+    <div class="sub_text_box">
+        <p class="title_sub_text">Der Sudoku Creator bietet dir die Möglichkeit Sudoku in verschiedenen
+            Schwierigkeitsgraden zu erstellen.</p>
+    </div>
+    <div class="row">
+        <div class="column">
+            <div id="sudoku" class="sudoku-board show-candidates" data-board-size="9">
+                <form action="/sudoku-solver/" method="post">
+                    {% csrf_token %}
+                    {% for n in "123456789" %}
+                        {% for l in "ABCDEFGHI" %}
+                            <div class="sudoku-board-cell">
+                                <input id="{{ l }}{{ n }}" type="text" name="{{ l }}{{ n }}" pattern="\d"
+                                       value="{{ values|letter:l|number:n }}" maxlength="1" readonly>
+                                <div id="candidates-{{ l }}{{ n }}" class="candidates">
+                                    <div class="candidate_box" id="{{ l }}{{ n }}-1">
+                                        <input type="hidden" name="{{ l }}{{ n }}-1" value="">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate_box" id="{{ l }}{{ n }}-2">
+                                        <input type="hidden" name="{{ l }}{{ n }}-2" value="">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate_box" id="{{ l }}{{ n }}-3">
+                                        <input type="hidden" name="{{ l }}{{ n }}-3" value="">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate_box" id="{{ l }}{{ n }}-4">
+                                        <input type="hidden" name="{{ l }}{{ n }}-4" value="">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate_box" id="{{ l }}{{ n }}-5">
+                                        <input type="hidden" name="{{ l }}{{ n }}-5" value="">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate_box" id="{{ l }}{{ n }}-6">
+                                        <input type="hidden" name="{{ l }}{{ n }}-6" value="">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate_box" id="{{ l }}{{ n }}-7">
+                                        <input type="hidden" name="{{ l }}{{ n }}-7" value="">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate_box" id="{{ l }}{{ n }}-8">
+                                        <input type="hidden" name="{{ l }}{{ n }}-8" value="">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="candidate_box" id="{{ l }}{{ n }}-9">
+                                        <input type="hidden" name="{{ l }}{{ n }}-9" value="">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    <input type="hidden" id="gen0" name="gen" value="0">
+                    <input id="solve" type="submit" class="buttons" value="In Sudoku Helper übernehmen">
+                </form>
+            </div>
+        </div>
+        <div class="column">
+            <form action="/sudoku-creator" method="get">
+                <label class="container">Einfach
+                    <input type="radio" id="easy" name="difficulty" value="5">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">Normal
+                    <input type="radio" id="normal" name="difficulty" value="10">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">Schwer
+                    <input type="radio" id="hard" name="difficulty" value="15">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">Ultra
+                    <input type="radio" id="ultra" name="difficulty" value="30">
+                    <span class="checkmark"></span>
+                </label>
+
+                <input id="generate" type="submit" class="buttons" value="Generieren">
+            </form>
+
+        </div>
+    </div>
 
 </div>
+<script src="{% static 'sudoku/script/solver.js' %}"></script>
 </body>
 </html>

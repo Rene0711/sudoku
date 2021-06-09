@@ -4,15 +4,15 @@
 <html>
 <head>
     <title>Sudoku Solver</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/menu.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/solver.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/sudokuGrid.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/style/menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/style/solver.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sudoku/style/sudokuGrid.css' %}">
 </head>
 <body onload="onSiteLoad()">
 <ul class="header">
     <li><a href="/"><img class="logo" src="{% static "pictures/LOGO_SUDOKU.png" %}"></a></li>
-    <li style="float:right"><a href="/sudoku-solver/">Sudoku Helper</a></li>
-    <li style="float:right" class="active"><a href="/sudoku-trainer/">Sudoku Trainer</a></li>
+    <li style="float:right" class="active"><a href="/sudoku-solver/">Sudoku Helper</a></li>
+    <li style="float:right"><a href="/sudoku-trainer/">Sudoku Trainer</a></li>
     <li style="float:right"><a href="/sudoku-creator/">Sudoku Creator</a></li>
 </ul>
 
@@ -110,6 +110,6 @@
         </div>
     </div>
 </div>
-<script src="{% static 'sudoku/solver.js' %}"></script>
+<script src="{% static 'sudoku/script/solver.js' %}"></script>
 </body>
 </html>
