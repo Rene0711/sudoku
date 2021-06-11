@@ -13,12 +13,13 @@ from sudoku.algorithms.fish.x_wing import x_wing
 from sudoku.algorithms.helper.find_empty import find_empty
 from sudoku.algorithms.helper.squares import get_square, square_finder
 from sudoku.algorithms.helper.marked_area import marked_area_two, marked_area, marked_area_three
+from sudoku.algorithms.uniqueness.unique_rectangle_one import unique_rectangle_one
 
 
 def solver(values, candidates):
     value_obj = find_empty(values_to_objects(filled(values), candidates))
     hints = dict()
-    """
+    """"""
     result_key = naked_single(value_obj)
     if result_key is not False:
         hints["1"] = ["Es ist ein Naked Single zu finden", "naked_single"]
@@ -90,7 +91,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-    """
+    
     result_keys, values, outside_keys, house_type = skyscraper(value_obj)
     if result_keys is not False:
         hints["1"] = ["Es ist ein Skyscraper zu finden"]
@@ -98,7 +99,7 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-    """
+    
     result_keys, values, outside_keys = string_kite(value_obj)
     if result_keys is not False:
         hints["1"] = ["Es ist ein 2-String Kite zu finden"]
@@ -106,7 +107,16 @@ def solver(values, candidates):
         hints["3"] = ["Beachte die markierten Felder", result_keys]
         hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
         return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
-    """
+
+    result_keys, values, outside_keys = unique_rectangle_one(value_obj)
+    if result_keys is not False:
+        hints["1"] = ["Es ist ein Unique Rectangle Type 1 zu finden"]
+        hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area_two(result_keys, "column")]
+        hints["3"] = ["Beachte die markierten Felder", result_keys]
+        hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
+        return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
+    """"""
+
     return objects_to_values(value_obj), hints, objects_to_candidates(value_obj)
 
 

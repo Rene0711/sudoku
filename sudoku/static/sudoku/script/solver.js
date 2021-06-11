@@ -191,7 +191,7 @@ function markField(id, key, hint) {
         locked_candidates(id, key, hint)
     } else if (algoName.innerHTML.includes("Hidden Pair")) {
         hidden_subsets(id, key, hint)
-    } else if (algoName.innerHTML.includes("Naked")) {
+    } else if (algoName.innerHTML.includes("Naked") || algoName.innerHTML.includes("Unique")) {
         naked_subsets(id, key, hint)
     } else {
         locked_candidates(id, key, hint)
