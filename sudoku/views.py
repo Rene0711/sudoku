@@ -61,9 +61,8 @@ def sudoku_trainer(request):
 
 def strategies(request):
     hints = dict()
+
     while len(hints) < 1:
-
-
         values, hints, name, description, candidates = trainer(request.GET["name"])
 
     return render(request, 'sudoku/strategies.html', {'values': values,

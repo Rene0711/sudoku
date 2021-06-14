@@ -1,4 +1,5 @@
 import sudoku.generator
+from sudoku.algorithms.fish.swordfish import swordfish
 from sudoku.algorithms.fish.x_wing import x_wing
 from sudoku.algorithms.helper.find_empty import find_empty
 from sudoku.algorithms.helper.marked_area import marked_area, marked_area_two, marked_area_three
@@ -14,6 +15,7 @@ from sudoku.algorithms.single_digit_patterns.string_kite import string_kite
 from sudoku.algorithms.singles.hidden_single import hidden_single
 from sudoku.algorithms.singles.naked_single import naked_single
 from sudoku.algorithms.uniqueness.unique_rectangle_one import unique_rectangle_one
+from sudoku.algorithms.uniqueness.unique_rectangle_two import unique_rectangle_two
 
 
 def trainer(name):
@@ -203,6 +205,34 @@ def trainer(name):
         if result_keys is not False:
             hints["1"] = ["Es ist ein Unique Rectangle Type 1 zu finden"]
             hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area_two(result_keys, "column")]
+            hints["3"] = ["Beachte die markierten Felder", result_keys]
+            hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
+            return objects_to_values(value_obj), hints, title, description, objects_to_candidates(value_obj)
+
+    if name == 'unique2':
+        title = 'Unique Rectangle Type 2'
+        description = 'Wenn in einem möglichen UR zwei nicht diagonale Zellen genau den gleichen zusätzlichen ' \
+                      'Kandidaten haben, können alle Kandidaten, die beide Extra-Kandidaten sehen, eliminiert werden. '
+        values = sudoku.generator.get_grid(False, 3)
+        value_obj = find_empty(values_to_objects(filled(values)))
+        result_keys, values, outside_keys, outside_values = unique_rectangle_two(value_obj)
+        if result_keys is not False:
+            hints["1"] = ["Es ist ein Unique Rectangle Type 2 zu finden"]
+            hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area_two(result_keys, "column")]
+            hints["3"] = ["Beachte die markierten Felder", result_keys]
+            hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys, outside_values]
+            return objects_to_values(value_obj), hints, title, description, objects_to_candidates(value_obj)
+
+    if name == 'swordfish':
+        title = 'Swordfish'
+        description = 'Swordfishes funktionieren ganz gleich wie X-Wings, nur mit drei Base- und drei Cover-Sets ' \
+                      'statt zwei. '
+        values = sudoku.generator.get_grid(False, 5)
+        value_obj = find_empty(values_to_objects(filled(values)))
+        result_keys, values, outside_keys, house_type = swordfish(value_obj)
+        if result_keys is not False:
+            hints["1"] = ["Es ist ein Swordfish zu finden"]
+            hints["2"] = ["Es ist im markierten Bereich zu finden", marked_area_two(result_keys, house_type)]
             hints["3"] = ["Beachte die markierten Felder", result_keys]
             hints["4"] = ["Die grünen Felder eleminieren die roten Felder", result_keys, values, outside_keys]
             return objects_to_values(value_obj), hints, title, description, objects_to_candidates(value_obj)
