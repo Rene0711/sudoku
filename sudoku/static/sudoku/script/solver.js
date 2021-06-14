@@ -58,6 +58,7 @@ function inCheck(key, cell, type) {
             buddies.push(document.getElementById(field))
         }
     })
+
     let check = false
     buddies.forEach(buddie => {
         if (buddie.value == key) {
@@ -70,16 +71,61 @@ function inCheck(key, cell, type) {
             }
         } else if (!check) {
             if (type == 0) {
-                cell.children[0].style.color = "rgb(0,0,0)"
+                cell.children[0].style.color = "rgb(0,0,255)"
+
             } else {
                 cell.children[1].children[key - 1].style.color = "rgb(0,0,0)"
             }
         }
     })
+    winCheck()
+}
+
+function winCheck() {
+    fields = document.getElementsByClassName("sudoku-board-cell")
+    let finished = true
+
+    for (let i = 0; i < fields.length; i++) {
+        let child = fields[i].children[0]
+        if (child.value == "" || child.style.color == "rgb(255, 0, 0)") {
+            finished = false
+        }
+    }
+    if (finished) {
+        var modal = document.getElementById("winner");
+        var span = document.getElementsByClassName("close");
+        modal.style.display = "block";
+        for (let i = 0; i < span.length; i++) {
+            span[i].onclick = function () {
+                modal.style.display = "none";
+            }
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+}
+
+function showHelp(){
+    var modal = document.getElementById("helper");
+        var span = document.getElementsByClassName("close");
+        modal.style.display = "block";
+        for (let i = 0; i < span.length; i++) {
+            span[i].onclick = function () {
+                modal.style.display = "none";
+            }
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
 }
 
 
-function superFancy() {
+function executeHint() {
     const candidateFields = document.getElementsByClassName("candidate_box")
     const algoName = document.getElementById("key-1-p")
     document.addEventListener("keydown", function (e) {
@@ -230,7 +276,7 @@ function showCandidates(candidates) {
 }
 
 function onSiteLoad() {
-    superFancy()
+    executeHint()
     //disableStarterNumbers()
     detailsClose()
     keyHandler()
@@ -483,7 +529,7 @@ function unique_two(id, key, hint) {
             hint[1].forEach(element => {
                 hint[2].forEach(ele => {
                     document.getElementById(element + "-" + ele).style.backgroundColor = "rgba(0,255,0,0.37)"
-                    if(document.getElementById(element + "-" + hint[4]).children[0].value != '') {
+                    if (document.getElementById(element + "-" + hint[4]).children[0].value != '') {
                         document.getElementById(element + "-" + hint[4]).style.backgroundColor = "rgba(255,255,0,0.37)"
                     }
                 })

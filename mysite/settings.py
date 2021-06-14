@@ -26,7 +26,6 @@ SECRET_KEY = '2el^%(n(fntm@a@323=9)&##go6a=ayec0-+xyq)@4kkr64l!%'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-	'oskaerik.pythonanywhere.com',
 	'localhost',
 ]
 
@@ -120,5 +119,4 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-STATIC_ROOT = "/home/oskaerik/sudoku-django/static"
 STATIC_URL = '/static/'

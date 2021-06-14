@@ -72,7 +72,9 @@
                     {% endfor %}
                     <input type="hidden" id="gen0" name="gen" value="0">
                     <input id="solve" type="submit" class="buttons" value="In Sudoku Helper übernehmen">
+
                 </form>
+                <button id="help" class="buttons" onclick="showHelp()">?</button>
             </div>
         </div>
         <div class="column">
@@ -81,7 +83,7 @@
             <article class="switch" id="candidateButton">
                 <input id="candidates_checkbox" type="checkbox" onclick="showCandidates({{ candidates }})">
                 <div>
-                    <span>Show candidates</span>
+                    <span>Kandidaten anzeigen</span>
                 </div>
             </article>
 
@@ -99,7 +101,25 @@
 
     </div>
 </div>
-
+<div id="winner" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>
+        <h2>Herzlichen Glückwunsch!</h2><br>Sie haben das Sudoku erfolgreich gelöst.</p>
+    </div>
+</div>
+<div id="helper" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>
+        <h2>Anleitung</h2><br>Die Anwendung kann wie folgt genutzt werden:<br><br>
+        <b>Zahlen 1-9</b> oder (aktiviertes) <b>Numpad 1-9</b> um Zahlen in Felder schreiben zu können<br>
+        <b>Entf</b> oder <b>Backslash</b> um Zahlen zu löschen<br>
+        <b>Shift + Zahlen 1-9</b> um Kandidaten zu setzen oder zu entfernen.<br>
+        <b>A Taste</b> um Hinweis 4 auszuführen.
+        </p>
+    </div>
+</div>
 <script src="{% static 'sudoku/script/solver.js' %}"></script>
 <script src="{% static 'sudoku/script/strategies.js' %}"></script>
 </body>

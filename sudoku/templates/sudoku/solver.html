@@ -86,6 +86,7 @@
                 <input type="hidden" id="gen3" name="gen" value="2">
                 <input id="clear" type="submit" class="buttons" value="Löschen">
             </form>
+            <button id="help" class= "buttons" onclick="showHelp()">?</button>
 
         </div>
         <div class="column">
@@ -93,7 +94,7 @@
             <article hidden class="switch" id="candidateButton">
                 <input id="candidates_checkbox" type="checkbox" onclick="showCandidates({{ candidates }})">
                 <div>
-                    <span>Show candidates</span>
+                    <span>Kandidaten anzeigen</span>
                 </div>
 
             </article>
@@ -108,6 +109,25 @@
 
             </div>
         </div>
+    </div>
+</div>
+<div id="winner" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>
+        <h2>Herzlichen Glückwunsch!</h2><br>Sie haben das Sudoku erfolgreich gelöst.</p>
+    </div>
+</div>
+<div id="helper" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>
+        <h2>Anleitung</h2><br>Die Anwendung kann wie folgt genutzt werden:<br><br>
+        <b>Zahlen 1-9</b> oder (aktiviertes) <b>Numpad 1-9</b> um Zahlen in Felder schreiben zu können<br>
+        <b>Entf</b> oder <b>Backslash</b> um Zahlen zu löschen<br>
+        <b>Shift + Zahlen 1-9</b> um Kandidaten zu setzen oder zu entfernen.<br>
+        <b>A Taste</b> um Hinweis 4 auszuführen.
+        </p>
     </div>
 </div>
 <script src="{% static 'sudoku/script/solver.js' %}"></script>

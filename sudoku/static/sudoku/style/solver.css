@@ -12,7 +12,7 @@ body {
 }
 
 .active {
-    background-color: rgba(31,66,195,0.3);
+    background-color: rgba(31, 66, 195, 0.3);
 }
 
 .buttons {
@@ -39,6 +39,11 @@ body {
 
 #generate {
     background-color: #f5dd5d;
+}
+
+#help {
+    width: 40px;
+    background-color: #f53978;
 }
 
 .column {
